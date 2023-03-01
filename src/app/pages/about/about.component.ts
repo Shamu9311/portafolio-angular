@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { InfoPaginaService } from '../../services/info-pagina.service';
+import { Equipo } from '../../interfaces/equipo.interface';
 
 @Component({
   selector: 'app-about',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
 
-  constructor() { }
+  equipo: Equipo[] = []
+
+  constructor( private infoPag: InfoPaginaService) { }
 
   ngOnInit(): void {
+    this.infoPag.cargarEquipo()
+      .subscribe( resp => {
+        this.equipo = resp;
+      })
   }
 
 }
